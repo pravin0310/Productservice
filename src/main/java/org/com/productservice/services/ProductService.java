@@ -1,6 +1,8 @@
 package org.com.productservice.services;
 
 import org.com.productservice.models.Product;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,8 @@ import org.com.productservice.models.Product;
 import org.com.productservice.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ProductController {
 
     @GetMapping("/")
     public List<Product> getAllProducts(){
-        return new ArrayList<>();
+        return productservice.getAllProducts();
     }
 
     @PostMapping("/")

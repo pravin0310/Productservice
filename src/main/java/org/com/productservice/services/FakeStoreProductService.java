@@ -4,13 +4,17 @@ import org.com.productservice.dto.FakeStoreProductDto;
 import org.com.productservice.models.Category;
 import org.com.productservice.models.Product;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+
+@Service
 
 public class FakeStoreProductService implements ProductService{
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -29,7 +33,18 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+        ResponseEntity<FakeStoreProductDto[]> fakeStoreProductDtoResponseEntity=
+                    restTemplate.getForEntity("https://fakestoreapi.com/products", FakeStoreProductDto[].class);
+
+        FakeStoreProductDto[] fakeStoreProductDtos=fakeStoreProductDtoResponseEntity.getBody();
+
+        List<Product> products= new ArrayList<>();
+
+        for(FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos){
+            products.add(convertFakeStoreDtoToProduct(fakeStoreProductDto));
+        }
+
+        return products;
     }
 
     @Override
