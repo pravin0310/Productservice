@@ -1,11 +1,16 @@
 package org.com.productservice.controllers;
 
+import org.com.productservice.exception.ProductNotFoundException;
 import org.com.productservice.models.Product;
 import org.com.productservice.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +18,17 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private ProductService productservice;
+    private final RestTemplate restTemplate;
+    private final ProductService productservice;
 
-    public ProductController(ProductService productservice) {
+    public ProductController(RestTemplate restTemplate, ProductService productservice) {
+        this.restTemplate = restTemplate;
         this.productservice = productservice;
     }
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id){
-//        return new Product();
-        return productservice.getProductById(id);
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
+        Product product = productservice.getProductById(id);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @GetMapping("/")
