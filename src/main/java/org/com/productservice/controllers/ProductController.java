@@ -21,7 +21,7 @@ public class ProductController {
     private final RestTemplate restTemplate;
     private final ProductService productservice;
 
-    public ProductController(RestTemplate restTemplate, ProductService productservice) {
+    public ProductController(@Qualifier("selfProductService") ProductService productservice,RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         this.productservice = productservice;
     }
