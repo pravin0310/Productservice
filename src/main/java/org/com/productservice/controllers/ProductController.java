@@ -1,5 +1,6 @@
 package org.com.productservice.controllers;
 
+import org.com.productservice.exception.CategoryNotFoundException;
 import org.com.productservice.exception.ProductNotFoundException;
 import org.com.productservice.models.Product;
 import org.com.productservice.services.ProductService;
@@ -36,9 +37,9 @@ public class ProductController {
         return productservice.getAllProducts();
     }
 
-    @PostMapping("/")
-    public Product createProduct(@RequestBody Product product){
-        return product;
+    @PostMapping()
+    public Product createProduct(@RequestBody Product product) throws CategoryNotFoundException {
+        return productservice.createProduct(product);
     }
 
     @DeleteMapping("/{id}")

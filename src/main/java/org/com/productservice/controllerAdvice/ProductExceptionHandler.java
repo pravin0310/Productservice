@@ -11,20 +11,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ProductExceptionHandler {
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ExceptionDto> RunTimeException(){
-
-        ExceptionDto exceptionDto=new ExceptionDto();
-        exceptionDto.setMessage("Something Went Wrong");
-        exceptionDto.setResolutionDetails("You need to Learn more process");
-
-        return new ResponseEntity<>(exceptionDto,HttpStatus.UNAUTHORIZED);
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<ExceptionDto> RunTimeException(){
+//
+//        ExceptionDto exceptionDto=new ExceptionDto();
+//        exceptionDto.setMessage("Something Went Wrong");
+//        exceptionDto.setResolutionDetails("You need to Learn more process");
+//
+//        return new ResponseEntity<>(exceptionDto,HttpStatus.UNAUTHORIZED);
+//    }
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ProductNotFoundExceptionDto> handleProductNotFoundException(ProductNotFoundException e){
         ProductNotFoundExceptionDto exceptionDto=new ProductNotFoundExceptionDto();
-        exceptionDto.setMessage(e.getMessage());
+
         exceptionDto.setProductId(e.getProductId());
+        exceptionDto.setMessage("Product Not Found");
         exceptionDto.setResolutionDetails("Please check the product ID and try again");
 
 

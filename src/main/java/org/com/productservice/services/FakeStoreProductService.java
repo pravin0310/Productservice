@@ -57,9 +57,7 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public ResponseEntity<Void> deleteProduct(Long id) {
-        return null;
-    }
+    public void deleteProduct(Long id) {}
 
     private static Product convertFakeStoreDtoToProduct(FakeStoreProductDto fakeStoreProductDto){
 
