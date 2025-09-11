@@ -4,6 +4,7 @@ import org.com.productservice.exception.CategoryNotFoundException;
 import org.com.productservice.models.Category;
 import org.com.productservice.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,5 +34,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     Product save(Product product);
 
     void deleteById(Long ProductId);
+
+    @Query("select p from Product p where p.id = :productId")
+    Product findProductWithgivenId(Long productId);
 
 }
